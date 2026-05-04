@@ -41,6 +41,6 @@ public class Bullet : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
-        BulletPooling.sharedInstance.ReturnToPool(gameObject);
+        BulletPooling.Instance.ReturnToPool(gameObject);
     }
 }

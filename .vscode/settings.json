@@ -56,5 +56,19 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Shooter.slnx"
+    "files.associations": {
+        "*.asset": "yaml",
+        "*.meta": "yaml",
+        "*.prefab": "yaml",
+        "*.unity": "yaml",
+    },
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.sln": "*.csproj",
+        "*.slnx": "*.csproj"
+    },
+    "dotnet.defaultSolution": "Shooter.slnx",
+    "dotrush.roslyn.projectOrSolutionFiles": [
+        "d:\\Dev game\\Shooter\\Shooter.sln"
+    ]
 }

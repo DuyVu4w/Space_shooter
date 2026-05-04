@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VFXPooling : MonoBehaviour
+public class VFXPooling : Singleton<VFXPooling>
 {
     public Queue<GameObject> poolEnemy = new Queue<GameObject>();
     public Queue<GameObject> poolAsteroid = new Queue<GameObject>();
@@ -11,14 +11,6 @@ public class VFXPooling : MonoBehaviour
     // prefabs[1] = player
     // prefabs[2] = enenmy
     public GameObject[] prefabs;
-
-
-    public static VFXPooling sharedInstance;
-
-    void Awake()
-    {
-        sharedInstance = this;
-    }
 
     void Start()
     {

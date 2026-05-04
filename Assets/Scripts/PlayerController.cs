@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bullet = BulletPooling.sharedInstance.GetBulletsObject();
+        GameObject bullet = BulletPooling.Instance.GetBulletsObject();
         bullet.transform.position = transform.position + new Vector3(0, 0, zBulletPos);
         source.Play();
     }

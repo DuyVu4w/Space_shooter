@@ -3,20 +3,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
-    // spawn rock
-    public float posX;
-    public float posZ;
-    public int maxAsteroid = 15;
-    private int numberOfAsteroid;
-    private float startWait = 4;
-    private float waveWait = 3;
-
     // game control
     public bool isGameOver, restart;
     public int score = 0;
+    
+    // speed dùng chung cho các script khác
     public float speed;
+
     //UI
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
@@ -24,9 +19,8 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        numberOfAsteroid = 5;
         isGameOver = restart = false;
-        StartCoroutine(Waves());
+        // Logic Spawn đã được chuyển sang cho LevelManager và SpawnStrategy
     }
 
     void Update()
@@ -37,35 +31,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-    IEnumerator Waves()
-    {
-        yield return new WaitForSeconds(startWait);
-        
-        while (!isGameOver)
-        {
-            for (int i = 0; i < numberOfAsteroid; i++)
-            {
-                yield return new WaitForSeconds(0.3f);
-                GameObject temp = RockPooling.sharedInstance.GetRock();
-                Rigidbody rb = temp.GetComponent<Rigidbody>();
-                rb.linearVelocity = Vector3.zero; // Reset vận tốc (Reset velocity)
-                rb.angularVelocity = Vector3.zero;
-                temp.GetComponent<Rigidbody>().linearVelocity = Vector3.back * speed;
-                temp.transform.position = new Vector3(Random.Range(-posX, posX), 0, posZ);
-            }
-            numberOfAsteroid++;
-
-            numberOfAsteroid = Mathf.Min(numberOfAsteroid, maxAsteroid);
-            yield return new WaitForSeconds(waveWait);
-        }
-        restart = true;
-        restartText.gameObject.SetActive(true);
-    }
-
     public void GameOver()
     {
         isGameOver = true;
         gameOverText.gameObject.SetActive(true);
+        
+        // Cho phép người chơi khởi động lại game sau khi thua
+        restart = true;
+        restartText.gameObject.SetActive(true);
     }
 
     public void Restart()

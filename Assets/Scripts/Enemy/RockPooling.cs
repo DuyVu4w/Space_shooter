@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockPooling : MonoBehaviour
+public class RockPooling : Singleton<RockPooling>
 {
     public GameObject[] rockPrefabs;
     public Queue<GameObject> pool = new Queue<GameObject>();
     public int amountToPool;
-
-    // singleton
-    public static RockPooling sharedInstance;
-
-
-    void Awake()
-    {
-        sharedInstance = this;
-    }
 
     void Start()
     {

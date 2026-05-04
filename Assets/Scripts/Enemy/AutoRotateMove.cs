@@ -17,7 +17,7 @@ public class AutoRotateMove : MonoBehaviour
         if (transform.position.z < zMin)
         {
 
-            RockPooling.sharedInstance.ReturnToPool(gameObject);
+            RockPooling.Instance.ReturnToPool(gameObject);
         }
     }
 }

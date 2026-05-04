@@ -1,17 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletPooling : MonoBehaviour
+public class BulletPooling : Singleton<BulletPooling>
 {
-    public static BulletPooling sharedInstance;
     public GameObject bulletPrefab;
     public List<GameObject> pool;
     public int amountToPool;
-
-    void Awake()
-    {
-        sharedInstance = this;
-    }
 
     void Start()
     {

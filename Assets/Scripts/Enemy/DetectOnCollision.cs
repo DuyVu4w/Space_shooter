@@ -24,7 +24,7 @@ public class DetectOnCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // play fx and sfx
-            GameObject vfx = Instantiate(VFXPooling.sharedInstance.prefabs[1]);
+            GameObject vfx = Instantiate(VFXPooling.Instance.prefabs[1]);
             GameObject player = collision.gameObject;
             vfx.GetComponent<AudioSource>().Play();
 
@@ -39,15 +39,16 @@ public class DetectOnCollision : MonoBehaviour
         // increase socre
         gameController.IncreaseScore(score);
         // play vfx
-        GameObject explosionFx = VFXPooling.sharedInstance.SpawnFromPool(VFXPooling.sharedInstance.prefabs[0], VFXPooling.sharedInstance.poolAsteroid);
+        GameObject explosionFx = VFXPooling.Instance.SpawnFromPool(VFXPooling.Instance.prefabs[0], VFXPooling.Instance.poolAsteroid);
         explosionFx.transform.position = transform.position;
+        
         // return vfx explosion to pool
-        VFXPooling.sharedInstance.ReturnAsteroidVFXToPool(explosionFx);
+        VFXPooling.Instance.ReturnAsteroidVFXToPool(explosionFx);
 
         // reset velocity
         gameObject.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         // return assteroid to pool
-        RockPooling.sharedInstance.ReturnToPool(gameObject);
+        RockPooling.Instance.ReturnToPool(gameObject);
     }
 
 }
