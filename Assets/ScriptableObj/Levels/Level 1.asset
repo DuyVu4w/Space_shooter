@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085c7f2c478a5214ea41fa005b9923ca, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelName: 
+  levelName: 1
   speed: 0
-  waves: []
+  waves:
+  - poolName: Rock
+    count: 10
+    SpawnInterval: 1
+    spawnStrategy: {fileID: 11400000, guid: 1e57ad0797f1ffe4086da77c04097aa3, type: 2}
