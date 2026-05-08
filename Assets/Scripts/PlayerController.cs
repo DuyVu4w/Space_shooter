@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
         moveAmt = moveAction.ReadValue<Vector2>();
         if (attackAction.ReadValue<float>() > 0 && Time.time > timeRate)
         {
-            Debug.Log("Attack");
             timeRate = Time.time + fireRate;
             Shoot();
         }
@@ -94,8 +93,11 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bullet = BulletPooling.Instance.GetBulletsObject();
-        bullet.transform.position = transform.position + new Vector3(0, 0, zBulletPos);
+        GameObject bullet = ObjectPooler.Instance.SpawnFromPool("Bullet");
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position + new Vector3(0, 0, zBulletPos);
+        }
         source.Play();
     }
 }

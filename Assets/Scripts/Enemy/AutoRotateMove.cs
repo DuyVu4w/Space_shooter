@@ -6,10 +6,17 @@ public class AutoRotateMove : MonoBehaviour
     public float moveSpeed;
     private Rigidbody rb;
     private float zMin = -5f;
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.angularVelocity = Random.insideUnitSphere * rotateSpeed;
+    }
+
+    void OnEnable()
+    {
+        if (rb != null)
+        {
+            rb.angularVelocity = Random.insideUnitSphere * rotateSpeed;
+        }
     }
 
     void Update()
@@ -17,7 +24,7 @@ public class AutoRotateMove : MonoBehaviour
         if (transform.position.z < zMin)
         {
 
-            RockPooling.Instance.ReturnToPool(gameObject);
+            ObjectPooler.Instance.ReturnToPool("Rock", gameObject);
         }
     }
 }

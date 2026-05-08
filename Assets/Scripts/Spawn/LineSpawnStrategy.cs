@@ -22,14 +22,12 @@ public class LineSpawnStrategy : SpawnStrategy
         {
             GameObject temp = null;
             if (poolName == "Rock") {
-                temp = RockPooling.Instance.GetRock();
+                temp = ObjectPooler.Instance.SpawnFromPool("Rock");
             }
 
             if (temp != null) {
                 float posX = startX + (i * lineSpacing);
                 temp.transform.position = new Vector3(posX, spawnOrigin.position.y, spawnOrigin.position.z);
-                temp.SetActive(true);
-
                 Rigidbody rb = temp.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
@@ -37,6 +35,8 @@ public class LineSpawnStrategy : SpawnStrategy
                     rb.angularVelocity = Vector3.zero; 
                     rb.linearVelocity = Vector3.back * speed;
                 }
+
+                temp.SetActive(true);
             }
         }
         

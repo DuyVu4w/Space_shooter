@@ -16,6 +16,8 @@ public class GameController : Singleton<GameController>
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI restartText;
+    public GameObject resultPanel;
+
 
     void Start()
     {
@@ -25,20 +27,24 @@ public class GameController : Singleton<GameController>
 
     void Update()
     {
-        if (restart && Input.GetKeyDown(KeyCode.R))
-        {
-            Restart();
-        }
+
     }
 
     public void GameOver()
     {
         isGameOver = true;
         gameOverText.gameObject.SetActive(true);
-        
+        resultPanel.SetActive(true);
         // Cho phép người chơi khởi động lại game sau khi thua
         restart = true;
         restartText.gameObject.SetActive(true);
+
+        ResultPanel resultPanelScript = resultPanel.GetComponent<ResultPanel>();
+        if (resultPanelScript != null)
+        {
+            resultPanelScript.ShowResult(score, false);
+        }
+
     }
 
     public void Restart()
@@ -49,6 +55,6 @@ public class GameController : Singleton<GameController>
     public void IncreaseScore(int scoreToAdd)
     {
         score += scoreToAdd;
-        scoreText.text = "Score: " + score;
+        scoreText.text = score.ToString();
     }
 }

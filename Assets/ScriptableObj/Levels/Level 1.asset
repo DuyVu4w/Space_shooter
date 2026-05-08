@@ -19,3 +19,15 @@ MonoBehaviour:
     count: 10
     SpawnInterval: 1
     spawnStrategy: {fileID: 11400000, guid: 1e57ad0797f1ffe4086da77c04097aa3, type: 2}
+  - poolName: Rock
+    count: 15
+    SpawnInterval: 0.5
+    spawnStrategy: {fileID: 11400000, guid: 1e57ad0797f1ffe4086da77c04097aa3, type: 2}
+  - poolName: Rock
+    count: 20
+    SpawnInterval: 0.3
+    spawnStrategy: {fileID: 11400000, guid: 1e57ad0797f1ffe4086da77c04097aa3, type: 2}
+  - poolName: Rock
+    count: 30
+    SpawnInterval: 0.3
+    spawnStrategy: {fileID: 11400000, guid: 1e57ad0797f1ffe4086da77c04097aa3, type: 2}

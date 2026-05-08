@@ -22,26 +22,20 @@ public class RandomSpawnStrategy : SpawnStrategy
             yield return new WaitForSeconds(spawnInterval);
             
             GameObject temp = null;
-            if (poolName == "Rock") {
-                temp = RockPooling.Instance.GetRock();
-            }
-            else if (poolName == "Meteor") {
-                // temp = MeteorPooling.Instance.GetMeteor();
-            }
+            temp = ObjectPooler.Instance.SpawnFromPool(poolName);
 
             if (temp != null) {
                 float randomX = Random.Range(-_rangeX, _rangeX);
                 temp.transform.position = new Vector3(randomX, spawnOrigin.position.y, spawnOrigin.position.z);
-                temp.SetActive(true);
-
                 // Xử lý vật lý (Physics handling)
                 Rigidbody rb = temp.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
                     rb.linearVelocity = Vector3.zero; // Reset vận tốc (Reset velocity)
-                    rb.angularVelocity = Vector3.zero; // Reset vận tốc góc (Reset angular velocity)
                     rb.linearVelocity = Vector3.back * speed;
                 }
+
+                temp.SetActive(true);
             }
         }
     }
