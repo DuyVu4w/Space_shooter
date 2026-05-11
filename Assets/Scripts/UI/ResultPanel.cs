@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class ResultPanel : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class ResultPanel : MonoBehaviour
     public TextMeshProUGUI resultText;
     public Button restartButton;
     public Button levelMenuButton;
-
+    public UIFader fader;
     public void ShowResult(int score, bool isWin)
     {
         resultText.text = isWin ? "Mission Complete!" : "Mission Failed!";
@@ -25,14 +26,24 @@ public class ResultPanel : MonoBehaviour
         .SetEase(Ease.OutCubic);
     }
 
-    public void OnRestartButtonClicked()
+    public async Task OnRestartButtonClicked()
     {
+        Task fadeTask = fader.FadeOut();
+        await fadeTask;
         GameController.Instance.Restart();
     }
 
-    public void OnLevelMenuButtonClicked()
+    public async Task OnLevelMenuButtonClicked()
     {
         // Load level menu scene
-        SceneManager.LoadScene("LevelMenu");
+        Task fadeTask = fader.FadeOut();
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("LevelMenu");
+        asyncLoad.allowSceneActivation = false;
+        await fadeTask;
+        while (!asyncLoad.isDone && asyncLoad.progress < 0.9f)
+        {
+            await Task.Yield();
+        }
+        asyncLoad.allowSceneActivation = true;
     }
 }

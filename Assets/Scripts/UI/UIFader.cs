@@ -2,26 +2,41 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Threading.Tasks;
+
 public class UIFader : MonoBehaviour
 {
     private Image fadeImage;
     public float fadeDuration = 1f;
-    void Start()
+
+    void Awake()
     {
+        gameObject.SetActive(true);
         fadeImage = GetComponent<Image>();
         fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, 1f);
-        FadeIn();
+    }
+    async void Start()
+    {
+        await FadeIn();
     }
 
-    public void FadeIn()
+    public async Task FadeIn()
     {
-        fadeImage.DOFade(0f, fadeDuration).SetEase(Ease.InQuad);
-        fadeImage.raycastTarget = false; // Disable raycast target to allow interactions during fade-in
+        fadeImage.raycastTarget = false;
+
+        await fadeImage.DOFade(0f, fadeDuration)
+            .SetEase(Ease.OutQuad)
+            .SetLink(gameObject)
+            .AsyncWaitForCompletion();
     }
 
-    public void FadeOut()
+    public async Task FadeOut()
     {
-        fadeImage.raycastTarget = true; // Enable raycast target to block interactions during fade-out
-        fadeImage.DOFade(1f, fadeDuration).SetEase(Ease.InQuad);
+        fadeImage.raycastTarget = true;
+
+        await fadeImage.DOFade(1f, fadeDuration)
+            .SetEase(Ease.OutQuad)
+            .SetLink(gameObject)
+            .AsyncWaitForCompletion();
     }
 }

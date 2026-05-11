@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,9 +10,19 @@ using UnityEditor;
 public class MainMenuHandle : MonoBehaviour
 {
     public UIFader fader;
-    public void LevelMenu()
+    public async void LevelMenu()
     {
-        StartCoroutine(LoadSceneWithFade("GameMap"));
+        Task fadeTask = fader.FadeOut();
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("LevelMenu");
+        asyncLoad.allowSceneActivation = false;
+        await fadeTask;
+        
+        while (!asyncLoad.isDone && asyncLoad.progress < 0.9f)
+        {
+            await Task.Yield();
+        }
+
+        asyncLoad.allowSceneActivation = true;
     }
 
     public void ExitGame()
@@ -23,14 +34,14 @@ public class MainMenuHandle : MonoBehaviour
 #endif
     }
 
-    IEnumerator LoadSceneWithFade(string sceneName)
-    {
+    // IEnumerator LoadSceneWithFade(string sceneName)
+    // {
 
-        if (fader != null)
-        {
-            fader.FadeOut();
-            yield return new WaitForSeconds(fader.fadeDuration);
-        }
-        SceneManager.LoadScene(sceneName);
-    }
+    //     if (fader != null)
+    //     {
+    //         fader.FadeOut();
+    //         yield return new WaitForSeconds(fader.fadeDuration);
+    //     }
+    //     SceneManager.LoadScene(sceneName);
+    // }
 }

@@ -1,16 +1,18 @@
 using UnityEngine;
 
-namespace Shooter.Data;
-public class PlayerPrefsSave : IDataHelper
+namespace Shooter.Data
 {
-    public static int GetCurrentLevel()
+    public static class PlayerPrefsSave
     {
-        return PlayerPrefs.GetInt("CurrentLevel", 1); // Default to level 1 if not set
-    }
+        public static int GetCurrentLevel()
+        {
+            return PlayerPrefs.GetInt("CurrentLevel", 1); // Default to level 1 if not set
+        }
 
-    public static void SetCurrentLevel(int level)
-    {
-        PlayerPrefs.SetInt("CurrentLevel", level);
-        PlayerPrefs.Save();
+        public static void SetCurrentLevel(int level)
+        {
+            PlayerPrefs.SetInt("CurrentLevel", level);
+            PlayerPrefs.Save();
+        }
     }
 }

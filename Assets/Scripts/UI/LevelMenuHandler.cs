@@ -1,22 +1,40 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 using Shooter.Data;
+
 
 public class LevelMenuHandler : MonoBehaviour
 {
     public UIFader fader;
+    public DataManager dataManager;
+    private int currentLevelIndex = 1;
 
-    void Start()
+    private void Start()
     {
-        int currentLevel = PlayerPrefsSave.GetCurrentLevel();
-        string sceneName = "Level" + currentLevel;
-        if (Application.CanStreamedLevelBeLoaded(sceneName))
+        currentLevelIndex = PlayerPrefsSave.GetCurrentLevel();
+        foreach (GameObject btn in GameObject.FindGameObjectsWithTag("LevelSelectButton"))
         {
-            SceneManager.LoadScene(sceneName);
+            LevelSelectButton lvSelect = btn.GetComponent<LevelSelectButton>();
+            lvSelect.SetLocked(lvSelect.levelIndex > currentLevelIndex);
         }
-        else
+
+    }
+
+
+    public async Task LoadLevel(LevelData levelData)
+    {
+        Task fadeTask = fader.FadeOut();
+        dataManager.selectedLevel = levelData;
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
+        asyncLoad.allowSceneActivation = false;
+        await fadeTask;
+
+        while (!asyncLoad.isDone && asyncLoad.progress < 0.9f)
         {
-            Debug.LogError("Scene " + sceneName + " cannot be loaded. Please check the scene name and ensure it is added to the build settings.");
+            await Task.Yield();
         }
+
+        asyncLoad.allowSceneActivation = true;
     }
 }

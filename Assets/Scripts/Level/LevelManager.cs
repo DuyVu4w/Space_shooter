@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        currentLevel = DataManager.Instance.selectedLevel;
         if (currentLevel != null && currentLevel.waves.Length > 0)
         {
             StartCoroutine(SpawnWaves());
@@ -39,6 +40,7 @@ public class LevelManager : MonoBehaviour
             currentWave++;
         }
         
+        yield return new WaitForSeconds(3f); // Đợi một chút trước khi kiểm tra kết thúc level
         if (!GameController.Instance.isGameOver) 
         {
             Debug.Log("Hoàn thành tất cả các wave của Level: " + currentLevel.levelName);

@@ -10,7 +10,6 @@ public class LineSpawnStrategy : SpawnStrategy
     {
         float speed = GameController.Instance.speed; 
         
-        // Ví dụ spawn quái theo đường thẳng nằm ngang
         // Đợi 1 chút trước khi spawn đợt đầu tiên
         yield return new WaitForSeconds(spawnInterval);
         
@@ -39,7 +38,6 @@ public class LineSpawnStrategy : SpawnStrategy
                 temp.SetActive(true);
             }
         }
-        
-        // SpawnLine thường sẽ đẻ ra cả hàng cùng lúc nên không cần yield bên trong vòng lặp for
+
     }
 }
