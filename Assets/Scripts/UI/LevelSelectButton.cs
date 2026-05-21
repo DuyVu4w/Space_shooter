@@ -30,7 +30,7 @@ public class LevelSelectButton : MonoBehaviour
     {
         if (levelData != null && menuHandler != null)
         {
-            await menuHandler.LoadLevel(levelData);
+            await menuHandler.LoadLevel(levelData, levelIndex);
         }
         else
         {

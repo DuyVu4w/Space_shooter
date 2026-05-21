@@ -17,8 +17,9 @@ public class ObjectPooler : Singleton<ObjectPooler>
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
 
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach (Pool pool in pools)
@@ -34,6 +35,11 @@ public class ObjectPooler : Singleton<ObjectPooler>
 
             poolDictionary.Add(pool.tag, objectPool);
         }
+    }
+
+    void Start()
+    {
+
     }
 
     public GameObject SpawnFromPool(string tag)

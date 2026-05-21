@@ -43,8 +43,8 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(3f); // Đợi một chút trước khi kiểm tra kết thúc level
         if (!GameController.Instance.isGameOver) 
         {
-            Debug.Log("Hoàn thành tất cả các wave của Level: " + currentLevel.levelName);
-            // Có thể gọi GameController.Instance.LevelComplete() tại đây nếu bạn có hàm đó
+            Debug.Log("Hoàn thành tất cả các wave của Level: " + currentLevel.levelIndex);
+            GameController.Instance.LevelComplete(currentLevel.levelIndex);
         }
     }
 }

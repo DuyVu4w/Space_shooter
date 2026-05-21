@@ -5,32 +5,38 @@ public class DetectOnCollision : MonoBehaviour
     public string poolTag;
     public int scoreValue;
     private GameController gameController;
-
+    public int hp = 1;
     void Start()
     {
         gameController = GameController.Instance;
     }
 
-    void OnCollisionEnter(Collision collision)
+
+    void OnCollisionEnter(Collision col)
     {
-        // 1. Kiểm tra va chạm với Người chơi
-        if (collision.gameObject.CompareTag("Player"))
+        // kiểm tra va chạm với người chơi
+        if (col.gameObject.CompareTag("Player"))
         {
-            HandlePlayerDeath(collision.gameObject);
+            HandlePlayerDeath(col.gameObject);
             return; 
         }
+    }
 
-        // 2. Kiểm tra va chạm với Đạn (hoặc các vật thể làm nổ đá)
-        if (collision.gameObject.CompareTag("PlayerBullet"))
+    // butlet ở dạng trigger
+    void OnTriggerEnter(Collider collider)
+    {
+        // kiểm tra va chạm với đạn player
+        if (collider.gameObject.CompareTag("PlayerBullet"))
         {
-            HandleObjectDestruction();
+            hp--;
+            if (hp <= 0) HandleObjectDestruction();
         }
     }
 
     private void HandlePlayerDeath(GameObject player)
     {
-        // Hiệu ứng nổ cho Player
-        // Sử dụng Pool để tránh Instantiate (khuyên dùng)s
+        // hiệu ứng nổ
+        // sử dụng Pool để tránh
         GameObject vfx = VFXPooling.Instance.prefabs[1]; // hiệu ứng nổ của player
         if (vfx != null)
         {
@@ -68,7 +74,7 @@ public class DetectOnCollision : MonoBehaviour
             explosionFx.transform.position = transform.position;
             explosionFx.SetActive(true);
         }
-
+        
         // Thu hồi viên đá về Pool
         ResetAndReturnToPool();
     }

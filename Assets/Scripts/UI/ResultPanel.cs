@@ -28,6 +28,7 @@ public class ResultPanel : MonoBehaviour
 
     public async Task OnRestartButtonClicked()
     {
+        UISfxController.Instance.PlayButtonClick();
         Task fadeTask = fader.FadeOut();
         await fadeTask;
         GameController.Instance.Restart();
@@ -35,6 +36,7 @@ public class ResultPanel : MonoBehaviour
 
     public async Task OnLevelMenuButtonClicked()
     {
+        UISfxController.Instance.PlayButtonClick();
         // Load level menu scene
         Task fadeTask = fader.FadeOut();
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("LevelMenu");

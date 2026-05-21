@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         Deactive();
     }

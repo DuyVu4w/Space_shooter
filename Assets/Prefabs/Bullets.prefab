@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2757835981360530669}
   - component: {fileID: 3849791085304565103}
   - component: {fileID: 6570494869954404257}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,9 +102,9 @@ GameObject:
   - component: {fileID: 4832703334814338729}
   - component: {fileID: 7734986568611229397}
   - component: {fileID: 6362218993819911811}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullets
-  m_TagString: PlayerBullet
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,7 +140,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -187,5 +187,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c76d8b142de724418e84654f6157b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
+  speed: -15
   zBound: 18

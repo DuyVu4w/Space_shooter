@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Shooter.Data;
 public class GameController : Singleton<GameController>
 {
     // game control
@@ -25,14 +25,9 @@ public class GameController : Singleton<GameController>
         // Logic Spawn đã được chuyển sang cho LevelManager và SpawnStrategy
     }
 
-    void Update()
-    {
-
-    }
-
     public void GameOver()
     {
-
+        UISfxController.Instance.PlayGameOver();
         isGameOver = true;
         gameOverText.gameObject.SetActive(true);
         resultPanel.SetActive(true);
@@ -50,8 +45,9 @@ public class GameController : Singleton<GameController>
 
     }
 
-    public void LevelComplete()
+    public void LevelComplete(int levelIndex)
     {
+        UISfxController.Instance.PlayLevelComplete();
         isGameOver = true;
         gameOverText.text = "Level Complete!";
         gameOverText.gameObject.SetActive(true);
@@ -66,6 +62,11 @@ public class GameController : Singleton<GameController>
         if (resultPanelScript != null)
         {
             resultPanelScript.ShowResult(score, true);
+        }
+        
+        if (levelIndex >= PlayerPrefsSave.GetCurrentLevel())
+        {
+            PlayerPrefsSave.SetCurrentLevel(levelIndex + 1);
         }
     }
 

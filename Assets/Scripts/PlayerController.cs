@@ -100,5 +100,14 @@ public class PlayerController : MonoBehaviour
         }
         source.Play();
     }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("EnemyBullet"))
+        {
+            GameController.Instance.GameOver();
+            gameObject.SetActive(false);
+        }
+    }
 }
 
